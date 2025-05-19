@@ -1,38 +1,260 @@
-.App {
+/* Estilo general */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0e0e0e;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  color: #f1f1f1;
+}
+
+/* Contenedor principal */
+.modern-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Título principal */
+.title {
   text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #00ffe7;
+  animation: fadeIn 1s ease-in-out;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Tarjeta del formulario */
+.form-card {
+  background: #141414;
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 0 10px rgba(0, 255, 231, 0.15);
+  color: #fff;
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+}
+/* Icono de la tarjeta informativa*/
+.label-con-icono {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 2rem; /* Aumentá este valor si querés más separación */
 }
 
-.App-link {
-  color: #61dafb;
+/* Grupos de campos */
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: #b6f5ff;
 }
 
-@keyframes App-logo-spin {
+.form-group select,
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #2b2b2b;
+  color: #ffffff;
+  box-shadow: inset 0 0 5px rgba(0, 255, 231, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+  outline: none;
+  box-shadow: 0 0 5px #00ffe7;
+  background-color: #353535;
+}
+
+/* Tarjeta del resumen */
+.summary-card {
+  margin-top: 2rem;
+  background: #141414;
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 0 10px rgba(0, 255, 231, 0.15);
+  color: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeInUp 0.8s ease;
+}
+
+.resumen-total {
+  border: 2px solid #00ffe7;
+  border-radius: 12px;
+  padding: 1rem;
+  background: #1e1e1e;
+}
+
+.resumen-total span {
+  font-size: 0.9rem;
+  color: #b6f5ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.resumen-total h2 {
+  font-size: 2.2rem;
+  color: #00ffe7;
+  margin: 0.5rem 0 0;
+}
+
+.detalle-resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #1a1a1a;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.resumen-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.5rem;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.resumen-item:last-child {
+  border-bottom: none;
+}
+
+.resumen-item span {
+  color: #b6f5ff;
+  font-weight: bold;
+}
+
+.resumen-item p {
+  margin: 0;
+  font-weight: 500;
+  color: #f1f1f1;
+}
+
+.alerta {
+  background: linear-gradient(145deg, #1f1f1f, #2a2a2a);
+  color: #ff5e5e;
+  padding: 1rem;
+  border: 1px solid #ff5e5e33;
+  border-left: 5px solid #ff5e5e;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(255, 94, 94, 0.2);
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  animation: fadeInDown 0.6s ease;
+}
+
+.boton-reset {
+  margin-top: 2rem;
+  padding: 0.75rem 1.8rem;
+  background: linear-gradient(135deg, #00ffe7, #00ffe7, #00ffe7);
+  color: #000000;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: 0 0 10px rgba(45, 183, 245, 0.3);
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  animation: fadeIn 0.8s ease-in;
+}
+
+.boton-reset:hover {
+  background: linear-gradient(135deg, #1a2a33, #274c61, #356c88);
+  box-shadow: 0 0 15px rgba(45, 183, 245, 0.5);
+  transform: scale(1.03);
+}
+
+.fecha-chip {
+  background: #ffeaa7;
+  color: #2d3436;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.fecha-hora-dark label {
+  color: #fff;
+}
+
+.input-fecha-dark {
+  background: #2a2a2a;
+  color: #f1f1f1;
+  border: 1px solid #ff6f00;
+  padding: 0.8rem;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.input-fecha-dark:focus {
+  border-color: #ff3d00;
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 61, 0, 0.4);
+}
+
+.logo-img {
+  width: 35%;
+  height: auto;
+  margin: 0 auto 1rem;
+  display: block;
+  border-radius: 20px 20px 10px 10px;
+}
+
+.tooltip-icon {
+  margin-left: 0.5rem;
+  color: #00ffe7;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.tooltip-icon:hover {
+  transform: scale(1.1);
+  color: #00e0ff;
+}
+
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
