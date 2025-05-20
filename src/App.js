@@ -1,4 +1,4 @@
-// App.js actualizado con ModalAyuda integrado
+// App.js corregido con cálculo actualizado
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import {
@@ -18,50 +18,57 @@ function App() {
   const [mensajeEntrega, setMensajeEntrega] = useState("");
   const [fechaEntrega, setFechaEntrega] = useState("");
 
-  // Modal de ayuda
-  const [ayudaVisible, setAyudaVisible] = useState(false);
-  const [ayudaMensaje, setAyudaMensaje] = useState("");
-
   useEffect(() => {
-    if (provincia && canton && cantidad && resistencia && descarga) {
-      const cantidadNum = parseFloat(cantidad);
-      const precioUnitario =
-        preciosPorCanton[provincia]?.[canton]?.[resistencia] || 0;
+    const cantidadNum = parseFloat(cantidad);
+    const resistenciaNum = parseInt(resistencia);
 
-      let total = 0;
+    const inputsValidos =
+      provincia &&
+      canton &&
+      !isNaN(cantidadNum) &&
+      cantidadNum > 0 &&
+      !isNaN(resistenciaNum) &&
+      descarga;
 
-      if (lugaresNoDisponibles.includes(canton)) {
-        setMensajeEntrega("⚠️ Actualmente no disponible en este cantón.");
-        setPrecioTotal(0);
-        return;
-      }
-
-      if (descarga !== "Directa" && cantidadNum < 7) {
-        setMensajeEntrega(
-          "⚠️ Para descargas con equipo de bombeo, el mínimo son 7 m³."
-        );
-        setPrecioTotal(0);
-        return;
-      }
-
-      setMensajeEntrega("");
-
-      if (descarga === "Directa" && cantidadNum < 7) {
-        const recargo = (7 - cantidadNum) * 25000;
-        total = precioUnitario * cantidadNum + recargo;
-      } else if (descarga !== "Directa" && cantidadNum <= 17) {
-        total = precioUnitario * cantidadNum + 170000;
-      } else if (descarga !== "Directa" && cantidadNum > 17) {
-        const recargo = cantidadNum * 10000;
-        total = precioUnitario * cantidadNum + recargo;
-      } else {
-        total = precioUnitario * cantidadNum;
-      }
-
-      setPrecioTotal(total);
-    } else {
+    if (!inputsValidos) {
       setPrecioTotal(0);
+      return;
     }
+
+    if (lugaresNoDisponibles.includes(canton)) {
+      setMensajeEntrega("⚠️ Actualmente no disponible en este cantón.");
+      setPrecioTotal(0);
+      return;
+    }
+
+    if (descarga !== "Directa" && cantidadNum < 7) {
+      setMensajeEntrega(
+        "⚠️ Para descargas con equipo de bombeo, el mínimo son 7 m³."
+      );
+      setPrecioTotal(0);
+      return;
+    }
+
+    setMensajeEntrega("");
+
+    const precioUnitario =
+      preciosPorCanton[provincia]?.[canton]?.[resistenciaNum] || 0;
+
+    let total = 0;
+
+    if (descarga === "Directa" && cantidadNum < 7) {
+      const recargo = (7 - cantidadNum) * 25000;
+      total = precioUnitario * cantidadNum + recargo;
+    } else if (descarga !== "Directa" && cantidadNum <= 17) {
+      total = precioUnitario * cantidadNum + 170000;
+    } else if (descarga !== "Directa" && cantidadNum > 17) {
+      const recargo = cantidadNum * 10000;
+      total = precioUnitario * cantidadNum + recargo;
+    } else {
+      total = precioUnitario * cantidadNum;
+    }
+
+    setPrecioTotal(total);
   }, [provincia, canton, cantidad, resistencia, descarga]);
 
   useEffect(() => {
