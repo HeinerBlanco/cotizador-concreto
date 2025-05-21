@@ -109,7 +109,7 @@ function App() {
       <div className="logo-container">
         <img src={logo} alt="Logo de la empresa" className="logo-img" />
       </div>
-      <h1 className="title">COTIZADOR DE CONCRETO</h1>
+      <h1 className="title">COTIZADOR ACTUALIZADO</h1>
 
       <div className="barra-progreso-wrapper">
         <div className="barra-progreso-fondo">
