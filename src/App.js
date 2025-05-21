@@ -7,6 +7,7 @@ import {
   lugaresNoDisponibles,
 } from "./AppDatosProvinciasYPrecios";
 import logo from "./assets/Logo Solo tiras.svg";
+import camionImg from "./assets/camion.png";
 
 function App() {
   const [provincia, setProvincia] = useState("");
@@ -17,6 +18,30 @@ function App() {
   const [precioTotal, setPrecioTotal] = useState(0);
   const [mensajeEntrega, setMensajeEntrega] = useState("");
   const [fechaEntrega, setFechaEntrega] = useState("");
+  const calcularProgreso = () => {
+    let progreso = 0;
+    if (provincia) progreso += 20;
+    if (canton) progreso += 20;
+    if (cantidad) progreso += 20;
+    if (descarga) progreso += 20;
+    if (resistencia) progreso += 20;
+    return progreso;
+  };
+
+  const compartirCotizacion = () => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Cotización de Concreto",
+          text: `Total: ₡${precioTotal.toLocaleString()} por ${cantidad} m³ de concreto\nTipo de descarga: ${descarga}\nResistencia: ${resistencia} kg/cm²\nSolicitado en ${canton}, ${provincia}.`,
+          url: window.location.href,
+        })
+        .then(() => console.log("Cotización compartida"))
+        .catch((error) => console.error("Error al compartir:", error));
+    } else {
+      alert("Compartir no es compatible con este dispositivo o navegador.");
+    }
+  };
 
   useEffect(() => {
     const cantidadNum = parseFloat(cantidad);
@@ -84,7 +109,24 @@ function App() {
       <div className="logo-container">
         <img src={logo} alt="Logo de la empresa" className="logo-img" />
       </div>
-      <h1 className="title">Cotizador de Concreto</h1>
+      <h1 className="title">COTIZADOR DE CONCRETO</h1>
+
+      <div className="barra-progreso-wrapper">
+        <div className="barra-progreso-fondo">
+          <div
+            className="barra-progreso-relleno"
+            style={{ width: `${calcularProgreso()}%` }}
+          ></div>
+        </div>
+        <div className="etiquetas-pasos">
+          <span>Provincia</span>
+          <span>Cantón</span>
+          <span>Cantidad</span>
+          <span>Descarga</span>
+          <span>Resistencia</span>
+        </div>
+      </div>
+
       <form className="form-card">
         <div className="form-grid">
           <div className="form-group">
@@ -205,6 +247,13 @@ function App() {
             }}
           >
             Reiniciar formulario
+          </button>
+          <button
+            type="button"
+            className="boton-share"
+            onClick={compartirCotizacion}
+          >
+            Compartir cotización
           </button>
         </div>
       )}

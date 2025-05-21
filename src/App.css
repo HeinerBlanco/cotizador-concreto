@@ -176,35 +176,6 @@ body {
   transform: scale(1.03);
 }
 
-.fecha-chip {
-  background: #ffeaa7;
-  color: #2d3436;
-  padding: 6px 12px;
-  border-radius: 20px;
-  display: inline-block;
-  font-weight: 600;
-  margin-top: 0.5rem;
-}
-
-.fecha-hora-dark label {
-  color: #fff;
-}
-
-.input-fecha-dark {
-  background: #2a2a2a;
-  color: #f1f1f1;
-  border: 1px solid #ff6f00;
-  padding: 0.8rem;
-  border-radius: 10px;
-  width: 100%;
-}
-
-.input-fecha-dark:focus {
-  border-color: #ff3d00;
-  outline: none;
-  box-shadow: 0 0 10px rgba(255, 61, 0, 0.4);
-}
-
 .logo-img {
   width: 35%;
   height: auto;
@@ -213,19 +184,56 @@ body {
   border-radius: 20px 20px 10px 10px;
 }
 
-.tooltip-icon {
-  margin-left: 0.5rem;
-  color: #00ffe7;
-  cursor: pointer;
-  font-size: 1.1rem;
-  display: inline-flex;
-  align-items: center;
-  transition: transform 0.2s ease, color 0.2s ease;
+.barra-progreso-wrapper {
+  margin: 1rem auto;
+  max-width: 400px;
 }
 
-.tooltip-icon:hover {
-  transform: scale(1.1);
-  color: #00e0ff;
+.barra-progreso-fondo {
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.barra-progreso-relleno {
+  height: 10px;
+  background-color: #00e676;
+  transition: width 0.3s ease-in-out;
+}
+
+.etiquetas-pasos {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  margin-top: 5px;
+  color: #999;
+  padding: 0 5px;
+}
+
+.boton-share {
+  margin-top: 1rem;
+  background-color: #68e601;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-share:hover {
+  background-color: #008e76;
+}
+
+@keyframes moverGradiente {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 @keyframes fadeIn {
