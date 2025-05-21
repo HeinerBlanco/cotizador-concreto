@@ -18,6 +18,9 @@ function App() {
   const [precioTotal, setPrecioTotal] = useState(0);
   const [mensajeEntrega, setMensajeEntrega] = useState("");
   const [fechaEntrega, setFechaEntrega] = useState("");
+  const [nombreCliente, setNombreCliente] = useState("");
+  const [telefonoCliente, setTelefonoCliente] = useState("");
+
   const calcularProgreso = () => {
     let progreso = 0;
     if (provincia) progreso += 20;
@@ -28,19 +31,46 @@ function App() {
     return progreso;
   };
 
-  const compartirCotizacion = () => {
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Cotización de Concreto",
-          text: `Total: ₡${precioTotal.toLocaleString()} por ${cantidad} m³ de concreto\nTipo de descarga: ${descarga}\nResistencia: ${resistencia} kg/cm²\nSolicitado en ${canton}, ${provincia}.`,
-          url: window.location.href,
-        })
-        .then(() => console.log("Cotización compartida"))
-        .catch((error) => console.error("Error al compartir:", error));
-    } else {
-      alert("Compartir no es compatible con este dispositivo o navegador.");
+  const compartirPorWhatsApp = () => {
+    if (!nombreCliente.trim() || !telefonoCliente.trim()) {
+      alert(
+        "Por favor ingresá tu nombre y número de teléfono antes de compartir."
+      );
+      return;
     }
+
+    const mensaje = `
+📋 *Cotización de Concreto Premezclado*
+
+👤 *Datos del cliente:*
+Nombre: *${nombreCliente}*
+Teléfono: *${telefonoCliente}*
+
+📍 *Ubicación:*
+Provincia: ${provincia}
+Cantón: ${canton}
+
+📦 *Detalles del pedido:*
+- Cantidad: *${cantidad} m³*
+- Tipo de descarga: *${descarga}*
+- Resistencia: *${resistencia} kg/cm²*
+${
+  fechaEntrega
+    ? `- Fecha tentativa de entrega: *${new Date(
+        fechaEntrega
+      ).toLocaleDateString()}*`
+    : ""
+}
+
+💰 *Total estimado:* *₡${precioTotal.toLocaleString()}*
+
+🖥️ Realizado desde el cotizador online:
+${window.location.href}
+`;
+
+    const mensajeCodificado = encodeURIComponent(mensaje);
+    const urlWhatsApp = `https://wa.me/?text=${mensajeCodificado}`;
+    window.open(urlWhatsApp, "_blank");
   };
 
   useEffect(() => {
@@ -214,6 +244,28 @@ function App() {
 
       {precioTotal > 0 && (
         <div className="summary-card">
+          <div className="form-group">
+            <label>Nombre del cliente</label>
+            <input
+              type="text"
+              value={nombreCliente}
+              onChange={(e) => setNombreCliente(e.target.value)}
+              placeholder="Ej: Juan Pérez"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Teléfono</label>
+            <input
+              type="tel"
+              value={telefonoCliente}
+              onChange={(e) => setTelefonoCliente(e.target.value)}
+              placeholder="Ej: 8888-8888"
+              required
+            />
+          </div>
+
           <div className="resumen-total">
             <span>Total estimado</span>
             <h2>₡{precioTotal.toLocaleString()}</h2>
@@ -251,9 +303,19 @@ function App() {
           <button
             type="button"
             className="boton-share"
-            onClick={compartirCotizacion}
+            onClick={compartirPorWhatsApp}
           >
-            Compartir cotización
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+              alt="WhatsApp"
+              style={{
+                width: "20px",
+                height: "20px",
+                marginRight: "8px",
+                verticalAlign: "middle",
+              }}
+            />
+            Enviar por WhatsApp
           </button>
         </div>
       )}

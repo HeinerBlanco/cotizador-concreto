@@ -213,18 +213,22 @@ body {
 
 .boton-share {
   margin-top: 1rem;
-  background-color: #68e601;
+  background-color: #25d366;
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 12px;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .boton-share:hover {
-  background-color: #008e76;
+  background-color: #1ebe5d;
 }
 
 @keyframes moverGradiente {
