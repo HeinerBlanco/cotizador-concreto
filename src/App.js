@@ -7,7 +7,8 @@ import {
   lugaresNoDisponibles,
 } from "./AppDatosProvinciasYPrecios";
 import logo from "./assets/Logo Solo tiras.svg";
-import camionImg from "./assets/camion.png";
+import BarraProgreso from "./BarraProgreso";
+import CotizadorForm from "./CotizadorForm";
 
 function App() {
   const [provincia, setProvincia] = useState("");
@@ -139,108 +140,8 @@ ${window.location.href}
       <div className="logo-container">
         <img src={logo} alt="Logo de la empresa" className="logo-img" />
       </div>
-      <h1 className="title">COTIZADOR ACTUALIZADO</h1>
-
-      <div className="barra-progreso-wrapper">
-        <div className="barra-progreso-fondo">
-          <div
-            className="barra-progreso-relleno"
-            style={{ width: `${calcularProgreso()}%` }}
-          ></div>
-        </div>
-        <div className="etiquetas-pasos">
-          <span>Provincia</span>
-          <span>Cantón</span>
-          <span>Cantidad</span>
-          <span>Descarga</span>
-          <span>Resistencia</span>
-        </div>
-      </div>
-
-      <form className="form-card">
-        <div className="form-grid">
-          <div className="form-group">
-            <label>Provincia</label>
-            <select
-              value={provincia}
-              onChange={(e) => {
-                setProvincia(e.target.value);
-                setCanton("");
-              }}
-            >
-              <option value="">Seleccione una provincia</option>
-              {Object.keys(ubicacionData).map((prov) => (
-                <option key={prov} value={prov}>
-                  {prov}
-                </option>
-              ))}
-            </select>
-          </div>
-          {provincia && (
-            <div className="form-group">
-              <label>Cantón</label>
-              <select
-                value={canton}
-                onChange={(e) => setCanton(e.target.value)}
-              >
-                <option value="">Seleccione un cantón</option>
-                {ubicacionData[provincia].map((cant) => (
-                  <option key={cant} value={cant}>
-                    {cant}
-                  </option>
-                ))}
-              </select>
-              {mensajeEntrega && (
-                <p className="alerta futurista">{mensajeEntrega}</p>
-              )}
-            </div>
-          )}
-          {canton &&
-            !mensajeEntrega &&
-            !lugaresNoDisponibles.includes(canton) && (
-              <>
-                <div className="form-group">
-                  <label className="label-con-icono">Cantidad (m³)</label>
-                  <input
-                    type="number"
-                    min="1"
-                    value={cantidad}
-                    onChange={(e) => setCantidad(e.target.value)}
-                    placeholder="Ej: 10"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Tipo de descarga</label>
-                  <select
-                    value={descarga}
-                    onChange={(e) => setDescarga(e.target.value)}
-                  >
-                    <option value="">Seleccione una opción</option>
-                    <option value="Directa">Directa</option>
-                    <option value="Telescópica">Telescópica</option>
-                    <option value="Estacionaria">Estacionaria</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Resistencia</label>
-                  <select
-                    value={resistencia}
-                    onChange={(e) => setResistencia(e.target.value)}
-                  >
-                    <option value="">Seleccione una opción</option>
-                    {[105, 140, 175, 210, 245, 280, 315, 350, 385].map(
-                      (val) => (
-                        <option key={val} value={val}>
-                          {val}
-                        </option>
-                      )
-                    )}
-                  </select>
-                </div>
-              </>
-            )}
-        </div>
-      </form>
+      <h1 className="title">COTIZADOR domingo</h1>
+      <BarraProgreso progreso={calcularProgreso()} />
 
       {precioTotal > 0 && (
         <div className="summary-card">
