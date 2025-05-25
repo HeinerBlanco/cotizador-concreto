@@ -140,7 +140,7 @@ ${window.location.href}
       <div className="logo-container">
         <img src={logo} alt="Logo de la empresa" className="logo-img" />
       </div>
-      <h1 className="title">COTIZADOR domingo</h1>
+      <h1 className="title">COTIZADOR DE CONCRETO</h1>
       <BarraProgreso progreso={calcularProgreso()} />
 
       {precioTotal > 0 && (
