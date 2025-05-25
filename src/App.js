@@ -1,8 +1,6 @@
-// App.js corregido con cálculo actualizado
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import {
-  ubicacionData,
   preciosPorCanton,
   lugaresNoDisponibles,
 } from "./AppDatosProvinciasYPrecios";
@@ -32,6 +30,33 @@ function App() {
     return progreso;
   };
 
+  const calcularPrecio = (
+    provincia,
+    canton,
+    resistenciaNum,
+    cantidadNum,
+    descarga
+  ) => {
+    const precioUnitario =
+      preciosPorCanton[provincia]?.[canton]?.[resistenciaNum] || 0;
+
+    if (descarga === "Directa" && cantidadNum < 7) {
+      const recargo = (7 - cantidadNum) * 25000;
+      return precioUnitario * cantidadNum + recargo;
+    }
+
+    if (descarga !== "Directa" && cantidadNum <= 17) {
+      return precioUnitario * cantidadNum + 170000;
+    }
+
+    if (descarga !== "Directa" && cantidadNum > 17) {
+      const recargo = cantidadNum * 10000;
+      return precioUnitario * cantidadNum + recargo;
+    }
+
+    return precioUnitario * cantidadNum;
+  };
+
   const compartirPorWhatsApp = () => {
     if (!nombreCliente.trim() || !telefonoCliente.trim()) {
       alert(
@@ -40,16 +65,18 @@ function App() {
       return;
     }
 
-    const mensaje = `
-📋 *Cotización de Concreto Premezclado*
+    if (!/^\d{8}$/.test(telefonoCliente)) {
+      alert("Por favor ingresá un número de teléfono válido de 8 dígitos.");
+      return;
+    }
 
-👤 *Datos del cliente:*
-Nombre: *${nombreCliente}*
-Teléfono: *${telefonoCliente}*
+    const mensaje = `
+Hola, 
+Me gustaría *confirmar* una cotización de concreto premezclado. A continuación le comparto los datos generados desde su sitio web:
 
 📍 *Ubicación:*
-Provincia: ${provincia}
-Cantón: ${canton}
+- Provincia: *${provincia}*
+- Cantón: *${canton}*
 
 📦 *Detalles del pedido:*
 - Cantidad: *${cantidad} m³*
@@ -65,12 +92,18 @@ ${
 
 💰 *Total estimado:* *₡${precioTotal.toLocaleString()}*
 
-🖥️ Realizado desde el cotizador online:
-${window.location.href}
+Quedo a la espera de su confirmación.
+
+Estos son mis datos de contacto:
+👤 *Nombre:* ${nombreCliente}
+📞 *Teléfono:* ${telefonoCliente}
+
+🖥️ Enviado desde el cotizador en línea:
 `;
 
     const mensajeCodificado = encodeURIComponent(mensaje);
-    const urlWhatsApp = `https://wa.me/?text=${mensajeCodificado}`;
+    const numeroDestino = "50687058773"; // ← Aquí poné tu número real sin espacios ni signos
+    const urlWhatsApp = `https://wa.me/${numeroDestino}?text=${mensajeCodificado}`;
     window.open(urlWhatsApp, "_blank");
   };
 
@@ -107,23 +140,13 @@ ${window.location.href}
 
     setMensajeEntrega("");
 
-    const precioUnitario =
-      preciosPorCanton[provincia]?.[canton]?.[resistenciaNum] || 0;
-
-    let total = 0;
-
-    if (descarga === "Directa" && cantidadNum < 7) {
-      const recargo = (7 - cantidadNum) * 25000;
-      total = precioUnitario * cantidadNum + recargo;
-    } else if (descarga !== "Directa" && cantidadNum <= 17) {
-      total = precioUnitario * cantidadNum + 170000;
-    } else if (descarga !== "Directa" && cantidadNum > 17) {
-      const recargo = cantidadNum * 10000;
-      total = precioUnitario * cantidadNum + recargo;
-    } else {
-      total = precioUnitario * cantidadNum;
-    }
-
+    const total = calcularPrecio(
+      provincia,
+      canton,
+      resistenciaNum,
+      cantidadNum,
+      descarga
+    );
     setPrecioTotal(total);
   }, [provincia, canton, cantidad, resistencia, descarga]);
 
@@ -140,8 +163,24 @@ ${window.location.href}
       <div className="logo-container">
         <img src={logo} alt="Logo de la empresa" className="logo-img" />
       </div>
-      <h1 className="title">COTIZADOR DE CONCRETO</h1>
+      <h1 className="title">COTIZADOR DE mensaje</h1>
       <BarraProgreso progreso={calcularProgreso()} />
+      <CotizadorForm
+        provincia={provincia}
+        setProvincia={setProvincia}
+        canton={canton}
+        setCanton={setCanton}
+        cantidad={cantidad}
+        setCantidad={setCantidad}
+        descarga={descarga}
+        setDescarga={setDescarga}
+        resistencia={resistencia}
+        setResistencia={setResistencia}
+        mensajeEntrega={mensajeEntrega}
+        setMensajeEntrega={setMensajeEntrega}
+        lugaresNoDisponibles={lugaresNoDisponibles}
+        setLugaresNoDisponibles={() => {}}
+      />
 
       {precioTotal > 0 && (
         <div className="summary-card">
@@ -162,7 +201,7 @@ ${window.location.href}
               type="tel"
               value={telefonoCliente}
               onChange={(e) => setTelefonoCliente(e.target.value)}
-              placeholder="Ej: 8888-8888"
+              placeholder="Ej: 88888888"
               required
             />
           </div>
