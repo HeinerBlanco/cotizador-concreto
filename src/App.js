@@ -157,7 +157,7 @@ Estos son mis datos de contacto:
       <div className="logo-container">
         <img src={logo} alt="Logo de la empresa" className="logo-img" />
       </div>
-      <h1 className="title">COTIZADOR DE mensaje</h1>
+      <h1 className="title">COTIZADOR DE CONCRETO</h1>
       <BarraProgreso progreso={calcularProgreso()} />
       <CotizadorForm
         provincia={provincia}
