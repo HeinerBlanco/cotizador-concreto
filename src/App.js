@@ -82,15 +82,9 @@ Me gustaría *confirmar* una cotización de concreto premezclado. A continuació
 - Cantidad: *${cantidad} m³*
 - Tipo de descarga: *${descarga}*
 - Resistencia: *${resistencia} kg/cm²*
-${
-  fechaEntrega
-    ? `- Fecha tentativa de entrega: *${new Date(
-        fechaEntrega
-      ).toLocaleDateString()}*`
-    : ""
-}
 
-💰 *Total estimado:* *₡${precioTotal.toLocaleString()}*
+💰 *Total estimado:* 
+    *₡${precioTotal.toLocaleString()}*
 
 Quedo a la espera de su confirmación.
 
