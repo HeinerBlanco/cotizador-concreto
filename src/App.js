@@ -20,16 +20,6 @@ function App() {
   const [nombreCliente, setNombreCliente] = useState("");
   const [telefonoCliente, setTelefonoCliente] = useState("");
 
-  const calcularProgreso = () => {
-    let progreso = 0;
-    if (provincia) progreso += 20;
-    if (canton) progreso += 20;
-    if (cantidad) progreso += 20;
-    if (descarga) progreso += 20;
-    if (resistencia) progreso += 20;
-    return progreso;
-  };
-
   const calcularPrecio = (
     provincia,
     canton,
@@ -96,7 +86,7 @@ Estos son mis datos de contacto:
 `;
 
     const mensajeCodificado = encodeURIComponent(mensaje);
-    const numeroDestino = "50687058773"; // ← Aquí poné tu número real sin espacios ni signos
+    const numeroDestino = "50687058773";
     const urlWhatsApp = `https://wa.me/${numeroDestino}?text=${mensajeCodificado}`;
     window.open(urlWhatsApp, "_blank");
   };
@@ -157,102 +147,117 @@ Estos son mis datos de contacto:
       <div className="logo-container">
         <img src={logo} alt="Logo de la empresa" className="logo-img" />
       </div>
-      <h1 className="title">COTIZADOR DE CONCRETO</h1>
-      <BarraProgreso progreso={calcularProgreso()} />
-      <CotizadorForm
-        provincia={provincia}
-        setProvincia={setProvincia}
-        canton={canton}
-        setCanton={setCanton}
-        cantidad={cantidad}
-        setCantidad={setCantidad}
-        descarga={descarga}
-        setDescarga={setDescarga}
-        resistencia={resistencia}
-        setResistencia={setResistencia}
-        mensajeEntrega={mensajeEntrega}
-        setMensajeEntrega={setMensajeEntrega}
-        lugaresNoDisponibles={lugaresNoDisponibles}
-        setLugaresNoDisponibles={() => {}}
-      />
+      <h1 className="title">CALCULADOR DE PRECIO</h1>
 
-      {precioTotal > 0 && (
-        <div className="summary-card">
-          <div className="form-group">
-            <label>Nombre del cliente</label>
-            <input
-              type="text"
-              value={nombreCliente}
-              onChange={(e) => setNombreCliente(e.target.value)}
-              placeholder="Ej: Juan Pérez"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Teléfono</label>
-            <input
-              type="tel"
-              value={telefonoCliente}
-              onChange={(e) => setTelefonoCliente(e.target.value)}
-              placeholder="Ej: 88888888"
-              required
-            />
-          </div>
-
-          <div className="resumen-total">
-            <span>Total estimado</span>
-            <h2>₡{precioTotal.toLocaleString()}</h2>
-          </div>
-          <div className="detalle-resumen">
-            <div className="resumen-item">
-              <span>Cantidad</span>
-              <p>{cantidad} m³</p>
+      <div className="contenedor-horizontal">
+        <div className="contenedor-barra">
+          {precioTotal > 0 && (
+            <div className="resumen-total resumen-barra">
+              <span>Total estimado</span>
+              <h2>₡{precioTotal.toLocaleString()}</h2>
             </div>
-            <div className="resumen-item">
-              <span>Tipo de descarga</span>
-              <p>{descarga}</p>
-            </div>
-            <div className="resumen-item">
-              <span>Resistencia</span>
-              <p>{resistencia}</p>
-            </div>
-          </div>
-          <button
-            type="button"
-            className="boton-reset"
-            onClick={() => {
-              setProvincia("");
-              setCanton("");
-              setCantidad("");
-              setDescarga("");
-              setResistencia("");
-              setPrecioTotal(0);
-              setMensajeEntrega("");
-              setFechaEntrega("");
-            }}
-          >
-            Reiniciar formulario
-          </button>
-          <button
-            type="button"
-            className="boton-share"
-            onClick={compartirPorWhatsApp}
-          >
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-              alt="WhatsApp"
-              style={{
-                width: "20px",
-                height: "20px",
-                marginRight: "8px",
-                verticalAlign: "middle",
-              }}
-            />
-            Enviar por WhatsApp
-          </button>
+          )}
         </div>
-      )}
+
+        <div className="contenedor-formulario">
+          {" "}
+          <CotizadorForm
+            provincia={provincia}
+            setProvincia={setProvincia}
+            canton={canton}
+            setCanton={setCanton}
+            cantidad={cantidad}
+            setCantidad={setCantidad}
+            descarga={descarga}
+            setDescarga={setDescarga}
+            resistencia={resistencia}
+            setResistencia={setResistencia}
+            mensajeEntrega={mensajeEntrega}
+            setMensajeEntrega={setMensajeEntrega}
+            lugaresNoDisponibles={lugaresNoDisponibles}
+            setLugaresNoDisponibles={() => {}}
+          />
+          {precioTotal > 0 && (
+            <div className="summary-card">
+              <p className="texto-confirmacion">
+                Si estás de acuerdo con este precio estimado, podés enviarlo por
+                WhatsApp y un asesor técnico lo confirmará en minutos.
+              </p>
+
+              <div className="form-group">
+                <label>Nombre</label>
+                <input
+                  type="text"
+                  value={nombreCliente}
+                  onChange={(e) => setNombreCliente(e.target.value)}
+                  placeholder="Ej: Juan Pérez"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Teléfono</label>
+                <input
+                  type="tel"
+                  value={telefonoCliente}
+                  onChange={(e) => setTelefonoCliente(e.target.value)}
+                  placeholder="Ej: 88888888"
+                  required
+                />
+              </div>
+
+              <div className="detalle-resumen">
+                <div className="resumen-item">
+                  <span>Cantidad</span>
+                  <p>{cantidad} m³</p>
+                </div>
+                <div className="resumen-item">
+                  <span>Tipo de descarga</span>
+                  <p>{descarga}</p>
+                </div>
+                <div className="resumen-item">
+                  <span>Resistencia</span>
+                  <p>{resistencia}</p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                className="boton-share"
+                onClick={compartirPorWhatsApp}
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                  alt="WhatsApp"
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    marginRight: "8px",
+                    verticalAlign: "middle",
+                  }}
+                />
+                Enviar por WhatsApp
+              </button>
+              <button
+                type="button"
+                className="boton-reset"
+                onClick={() => {
+                  setProvincia("");
+                  setCanton("");
+                  setCantidad("");
+                  setDescarga("");
+                  setResistencia("");
+                  setPrecioTotal(0);
+                  setMensajeEntrega("");
+                  setFechaEntrega("");
+                }}
+              >
+                Reiniciar formulario
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

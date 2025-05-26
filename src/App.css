@@ -9,7 +9,7 @@ body {
 
 /* Contenedor principal */
 .modern-container {
-  max-width: 480px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
 }
@@ -17,10 +17,42 @@ body {
 /* Título principal */
 .title {
   text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 2rem;
   color: #00ffe7;
   animation: fadeIn 1s ease-in-out;
+}
+
+/* Logo */
+.logo-img {
+  width: 10%;
+  height: auto;
+  margin: 0 auto 1rem;
+  display: block;
+  border-radius: 20px 20px 10px 10px;
+}
+
+/* Texto de confirmación */
+.texto-confirmacion {
+  font-size: 0.95rem;
+  color: #b6f5ff;
+  text-align: center;
+  margin-bottom: 1rem;
+  background-color: #1a1a1a;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 255, 231, 0.1);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Contenedor horizontal: barra + formulario */
+.contenedor-horizontal {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
 /* Tarjeta del formulario */
@@ -33,12 +65,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-}
-/* Icono de la tarjeta informativa*/
-.label-con-icono {
-  display: flex;
-  align-items: center;
-  gap: 2rem; /* Aumentá este valor si querés más separación */
 }
 
 /* Grupos de campos */
@@ -67,6 +93,38 @@ body {
   outline: none;
   box-shadow: 0 0 5px #00ffe7;
   background-color: #353535;
+}
+
+/* Barra de progreso vertical */
+.barra-progreso-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 220px;
+  min-width: 40px;
+}
+
+.progreso-porcentaje {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #00ffe7;
+}
+
+.barra-vertical-fondo {
+  width: 12px;
+  height: 100%;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.barra-vertical-relleno {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  transition: height 0.4s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 /* Tarjeta del resumen */
@@ -119,7 +177,6 @@ body {
   font-size: 1rem;
   border-bottom: 1px solid #333;
   padding-bottom: 0.5rem;
-  animation: fadeIn 0.5s ease-in;
 }
 
 .resumen-item:last-child {
@@ -137,109 +194,43 @@ body {
   color: #f1f1f1;
 }
 
-.alerta {
-  background: linear-gradient(145deg, #1f1f1f, #2a2a2a);
-  color: #ff5e5e;
-  padding: 1rem;
-  border: 1px solid #ff5e5e33;
-  border-left: 5px solid #ff5e5e;
-  border-radius: 10px;
-  font-weight: 600;
-  box-shadow: 0 0 10px rgba(255, 94, 94, 0.2);
-  margin-top: 1rem;
-  text-align: center;
-  font-size: 0.95rem;
-  letter-spacing: 0.5px;
-  animation: fadeInDown 0.6s ease;
+/* Botones */
+.boton-reset,
+.boton-share {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
 }
 
 .boton-reset {
-  margin-top: 2rem;
-  padding: 0.75rem 1.8rem;
-  background: linear-gradient(135deg, #00ffe7, #00ffe7, #00ffe7);
-  color: #000000;
-  border: none;
-  border-radius: 12px;
-  font-weight: 800;
-  font-size: 1rem;
-  box-shadow: 0 0 10px rgba(45, 183, 245, 0.3);
-  transition: all 0.3s ease;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  animation: fadeIn 0.8s ease-in;
+  background: linear-gradient(135deg, #00ffe7, #00ffe7);
+  color: #000;
 }
 
 .boton-reset:hover {
-  background: linear-gradient(135deg, #1a2a33, #274c61, #356c88);
-  box-shadow: 0 0 15px rgba(45, 183, 245, 0.5);
+  background: linear-gradient(135deg, #1a2a33, #274c61);
   transform: scale(1.03);
 }
 
-.logo-img {
-  width: 35%;
-  height: auto;
-  margin: 0 auto 1rem;
-  display: block;
-  border-radius: 20px 20px 10px 10px;
-}
-
-.barra-progreso-wrapper {
-  margin: 1rem auto;
-  max-width: 400px;
-}
-
-.barra-progreso-fondo {
-  height: 10px;
-  background-color: #ccc;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.barra-progreso-relleno {
-  height: 10px;
-  background-color: #00e676;
-  transition: width 0.3s ease-in-out;
-}
-
-.etiquetas-pasos {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75rem;
-  margin-top: 5px;
-  color: #999;
-  padding: 0 5px;
-}
-
 .boton-share {
-  margin-top: 1rem;
-  background-color: #25d366;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 12px;
-  font-size: 0.9rem;
+  background-color: #9cfe09;
+  color: #000;
   display: flex;
   align-items: center;
-  gap: 8px;
   justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  gap: 10px;
 }
 
 .boton-share:hover {
-  background-color: #1ebe5d;
+  background-color: #78e306;
 }
 
-@keyframes moverGradiente {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
+/* Animaciones */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -253,17 +244,6 @@ body {
   from {
     opacity: 0;
     transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
   }
   to {
     opacity: 1;
