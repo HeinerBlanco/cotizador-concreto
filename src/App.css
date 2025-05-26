@@ -5,6 +5,7 @@ body {
   background-color: #0e0e0e;
   font-family: "Segoe UI", Roboto, sans-serif;
   color: #f1f1f1;
+  font-family: 1rem;
 }
 
 /* Contenedor principal */
@@ -17,7 +18,7 @@ body {
 /* Título principal */
 .title {
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin-bottom: 2rem;
   color: #00ffe7;
   animation: fadeIn 1s ease-in-out;
@@ -59,7 +60,7 @@ body {
 .form-card {
   background: #141414;
   border-radius: 16px;
-  padding: 2rem 1.5rem;
+  padding: 2.5rem 1.5rem;
   box-shadow: 0 0 10px rgba(0, 255, 231, 0.15);
   color: #fff;
   display: flex;
@@ -78,7 +79,8 @@ body {
 .form-group select,
 .form-group input {
   width: 100%;
-  padding: 0.75rem;
+  padding: 1rem;
+  font-size: 1rem;
   border: none;
   border-radius: 10px;
   font-size: 1rem;
@@ -157,7 +159,7 @@ body {
 }
 
 .resumen-total h2 {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   color: #00ffe7;
   margin: 0.5rem 0 0;
 }
@@ -197,11 +199,11 @@ body {
 /* Botones */
 .boton-reset,
 .boton-share {
-  padding: 0.75rem 1.5rem;
+  padding: 1rem 2rem;
   border: none;
   border-radius: 12px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
