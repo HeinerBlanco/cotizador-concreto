@@ -147,7 +147,7 @@ Estos son mis datos de contacto:
       <div className="logo-container">
         <img src={logo} alt="Logo de la empresa" className="logo-img" />
       </div>
-      <h1 className="title">CALCULADOR DE PRECIO</h1>
+      <h1 className="title">CALCULAR PRECIO</h1>
 
       <div className="contenedor-horizontal">
         <div className="contenedor-barra">
