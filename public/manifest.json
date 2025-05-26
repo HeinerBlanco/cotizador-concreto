@@ -3,18 +3,18 @@
   "name": "Calculador de Precios Concreto CR",
   "icons": [
     {
-      "src": "/public/Logo Concreto CR en 3D.jpg",
+      "src": "Logo Concreto CR a color en png.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "/public/Logo Concreto CR en 3D.jpg",
-      "type": "image/jpg",
+      "src": "Logo Concreto CR a color en png.png",
+      "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/public/Logo Concreto CR en 3D.jpg",
-      "type": "image/jpg",
+      "src": "Logo Concreto CR a color en png.png",
+      "type": "image/png",
       "sizes": "512x512"
     }
   ],
