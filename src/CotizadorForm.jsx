@@ -3,6 +3,7 @@ import {
   ubicacionData,
   lugaresNoDisponibles,
 } from "./AppDatosProvinciasYPrecios";
+import { BiFontSize } from "react-icons/bi";
 
 function CotizadorForm({
   provincia,

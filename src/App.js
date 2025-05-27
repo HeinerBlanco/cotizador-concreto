@@ -180,8 +180,10 @@ Estos son mis datos de contacto:
           {precioTotal > 0 && (
             <div className="summary-card">
               <p className="texto-confirmacion">
-                Si estás de acuerdo con este precio estimado, podés enviarlo por
-                WhatsApp y un asesor técnico lo confirmará en minutos.
+                Ingresá tu nombre y teléfono. <br></br>presioná Enviar por
+                WhatsApp
+                <br></br> <br></br>Un técnico te responderá en menos de 5
+                minutos.
               </p>
 
               <div className="form-group">
